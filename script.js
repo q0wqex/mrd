@@ -4,7 +4,7 @@ const ROLES_DB = {
     CIVILIAN: { name: 'Мирный', icon: 'users', color: 'border-civilian', bg: 'bg-civilian', desc: 'Вычислите предателей среди своих' },
     COMMISSIONER: { name: 'Комиссар', icon: 'search', color: 'border-comm', bg: 'bg-comm', desc: 'Проверяйте роли игроков ночью' },
     DOCTOR: { name: 'Доктор', icon: 'heart-pulse', color: 'border-doc', bg: 'bg-doc', desc: 'Лечите выбранного игрока ночью' },
-    BEAUTY: { name: 'sparkles', icon: 'sparkles', color: 'border-beauty', bg: 'bg-beauty', desc: 'Отвлекайте игроков и блокируйте босса' },
+    BEAUTY: { name: 'Красотка', icon: 'sparkles', color: 'border-beauty', bg: 'bg-beauty', desc: 'Отвлекайте игроков и блокируйте босса' },
     MANIAC: { name: 'Маньяк', icon: 'skull', color: 'border-maniac', bg: 'bg-maniac', desc: 'Убейте всех, чтобы победить соло' }
 };
 
