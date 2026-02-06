@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Mafia Role Dealer</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Inter:wght@300;400;600&display=swap"
+        rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header id="mainHeader" class="main-header">
+            <h1 class="godfather-title">Mafia</h1>
+            <p class="header-subtitle">Role Dealer</p>
+        </header>
+
+        <!-- Main Layout -->
+        <div class="main-layout">
+            <!-- Sidebar -->
+            <aside id="sidebar" class="sidebar">
+                <div class="glass config-panel">
+                    <h2 class="panel-title">Настройки</h2>
+
+                    <div class="config-inputs">
+                        <div class="input-group">
+                            <label class="input-label">Игроков</label>
+                            <input type="number" id="playerCount" value="10" min="4" max="30" class="number-input">
+                        </div>
+
+                        <div id="roleList" class="role-list">
+                            <!-- JS toggles injected here -->
+                        </div>
+                    </div>
+
+                    <button id="startBtn" class="btn btn-primary">
+                        Начать раздачу
+                    </button>
+
+                    <button id="resetBtn" class="btn btn-secondary" style="margin-top: 1rem;"
+                        onclick="location.reload()">
+                        Сбросить всё
+                    </button>
+                </div>
+            </aside>
+
+            <!-- Display Area -->
+            <section class="display-area">
+                <!-- Reveal Mode -->
+                <div id="revealZone" class="reveal-zone hidden">
+                    <div class="reveal-header">
+                        <h2 id="playerHeading">Игрок #1</h2>
+                        <p id="statusHint">Подойдите для получения роли</p>
+                    </div>
+
+                    <div class="card-container">
+                        <div id="mainCard" class="card-inner">
+                            <div class="card-face card-back glass">
+                                <div class="card-back-icon">
+                                    <i data-lucide="ghost" style="width: 48px; height: 48px; opacity: 0.2;"></i>
+                                </div>
+                                <div class="pulse-text">Нажми, чтобы открыть</div>
+                            </div>
+                            <div id="cardFront" class="card-face card-front glass">
+                                <span id="rIcon" style="margin-bottom: 1.5rem; display: flex;"></span>
+                                <h3 id="rName"
+                                    style="font-size: 2rem; margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 0.05em;">
+                                    Комиссар</h3>
+                                <p id="rDesc"
+                                    style="font-size: 0.75rem; color: rgba(255, 255, 255, 0.4); line-height: 1.6; text-transform: uppercase; letter-spacing: 0.1em; max-width: 80%">
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Final View -->
+                <div id="summaryZone" class="summary-zone hidden">
+                    <div class="summary-header">
+                        <h2 class="serif" style="font-size: 1.75rem;">Роли выданы</h2>
+                        <button onclick="location.reload()" class="btn btn-secondary"
+                            style="width: auto; padding: 0.5rem 1.25rem; border-radius: 2rem;">⚙️ Заново</button>
+                    </div>
+                    <div id="summaryGrid" class="summary-grid"></div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- Custom Script -->
+    <script src="script.js"></script>
+</body>
+
+</html>
