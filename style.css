@@ -533,3 +533,12 @@ input:checked+.switch::after {
 .bg-maniac {
     background: rgba(120, 53, 15, 0.2);
 }
+
+.border-kamikaze {
+    border-color: #ea580c;
+    color: #fb923c;
+}
+
+.bg-kamikaze {
+    background: rgba(154, 52, 18, 0.2);
+}

@@ -5,7 +5,8 @@ const ROLES_DB = {
     COMMISSIONER: { name: 'Комиссар', icon: 'search', color: 'border-comm', bg: 'bg-comm', desc: 'Проверяйте роли игроков ночью' },
     DOCTOR: { name: 'Доктор', icon: 'heart-pulse', color: 'border-doc', bg: 'bg-doc', desc: 'Лечите выбранного игрока ночью' },
     BEAUTY: { name: 'Красотка', icon: 'sparkles', color: 'border-beauty', bg: 'bg-beauty', desc: 'Отвлекайте игроков и блокируйте босса' },
-    MANIAC: { name: 'Маньяк', icon: 'skull', color: 'border-maniac', bg: 'bg-maniac', desc: 'Убейте всех, чтобы победить соло' }
+    MANIAC: { name: 'Маньяк', icon: 'skull', color: 'border-maniac', bg: 'bg-maniac', desc: 'Убейте всех, чтобы победить соло' },
+    KAMIKAZE: { name: 'Камикадзе', icon: 'bomb', color: 'border-kamikaze', bg: 'bg-kamikaze', desc: 'Если вас убьют, вы заберете убийцу с собой' }
 };
 
 const config = [
@@ -13,7 +14,8 @@ const config = [
     { id: 'COMMISSIONER', name: 'Комиссар', icon: 'search', active: true },
     { id: 'DOCTOR', name: 'Доктор', icon: 'shield-plus', active: true },
     { id: 'BEAUTY', name: 'Красотка', icon: 'heart', active: false },
-    { id: 'MANIAC', name: 'Маньяк', icon: 'axe', active: false }
+    { id: 'MANIAC', name: 'Маньяк', icon: 'axe', active: false },
+    { id: 'KAMIKAZE', name: 'Камикадзе', icon: 'bomb', active: false }
 ];
 
 let gameSession = [];
@@ -79,6 +81,9 @@ if (startBtn) {
 
         const maniacCheck = document.getElementById('role-MANIAC');
         if (maniacCheck && maniacCheck.checked) gameSession.push(ROLES_DB.MANIAC);
+
+        const kamikazeCheck = document.getElementById('role-KAMIKAZE');
+        if (kamikazeCheck && kamikazeCheck.checked) gameSession.push(ROLES_DB.KAMIKAZE);
 
         if (gameSession.length > n) return alert('Слишком много ролей!');
         while (gameSession.length < n) gameSession.push(ROLES_DB.CIVILIAN);
