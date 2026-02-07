@@ -133,18 +133,41 @@ function updateRevealState() {
     lucide.createIcons();
 }
 
+const WAKING_PRIORITY = {
+    'Красотка': 1,
+    'Босс': 2,
+    'Мафия': 2,
+    'Маньяк': 3,
+    'Комиссар': 4,
+    'Доктор': 5,
+    'Камикадзе': 6,
+    'Мирный': 7
+};
+
 function showSummary() {
     document.getElementById('revealZone').classList.add('hidden');
     document.getElementById('summaryZone').classList.remove('hidden');
     const grid = document.getElementById('summaryGrid');
     if (grid) {
         grid.innerHTML = '';
-        gameSession.forEach((role, i) => {
+
+        // Create an array with original indices to preserve player numbers
+        const playersWithIndices = gameSession.map((role, index) => ({ role, index }));
+
+        // Sort by waking priority
+        playersWithIndices.sort((a, b) => {
+            const pA = WAKING_PRIORITY[a.role.name] || 99;
+            const pB = WAKING_PRIORITY[b.role.name] || 99;
+            if (pA !== pB) return pA - pB;
+            return a.index - b.index; // Secondary sort by player number
+        });
+
+        playersWithIndices.forEach(({ role, index }) => {
             const div = document.createElement('div');
             div.className = `glass summary-card ${role.bg} ${role.color}`;
             div.innerHTML = `
                 <div class="card-info">
-                    <span class="player-num serif">${(i + 1).toString().padStart(2, '0')}</span>
+                    <span class="player-num serif">${(index + 1).toString().padStart(2, '0')}</span>
                     <span class="role-name-mini serif">${role.name}</span>
                 </div>
                 <span><i data-lucide="${role.icon}" style="width: 20px; height: 20px;"></i></span>
