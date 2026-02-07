@@ -21,6 +21,14 @@ const config = [
 let gameSession = [];
 let currIdx = 0;
 
+const shotSound = new Audio('https://voicebot.su/uploads/sounds/12/11290/11290.mp3');
+shotSound.volume = 0.3;
+
+function playShotSound() {
+    shotSound.currentTime = 0;
+    shotSound.play().catch(e => console.log('Sound play blocked:', e));
+}
+
 // Initialize Lucide
 window.addEventListener('DOMContentLoaded', () => {
     lucide.createIcons();
@@ -141,7 +149,11 @@ function showSummary() {
                 </div>
                 <span><i data-lucide="${role.icon}" style="width: 20px; height: 20px;"></i></span>
             `;
-            div.onclick = () => div.classList.toggle('eliminated');
+            div.onclick = () => {
+                const isEliminating = !div.classList.contains('eliminated');
+                div.classList.toggle('eliminated');
+                if (isEliminating) playShotSound();
+            };
             grid.appendChild(div);
         });
         lucide.createIcons();
