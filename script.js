@@ -21,12 +21,40 @@ const config = [
 let gameSession = [];
 let currIdx = 0;
 
-const shotSound = new Audio('https://voicebot.su/uploads/sounds/12/11290/11290.mp3');
+const shotSound = new Audio('shot.mp3');
 shotSound.volume = 0.3;
+
+// Web Audio API fallback generator for offline sound
+function playSynthShotSound() {
+    try {
+        const AudioCtx = window.AudioContext || window.webkitAudioContext;
+        if (!AudioCtx) return;
+        const ctx = new AudioCtx();
+        const bufferSize = ctx.sampleRate * 0.15;
+        const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+        const data = buffer.getChannelData(0);
+        for (let i = 0; i < bufferSize; i++) {
+            data[i] = (Math.random() * 2 - 1) * Math.exp(-i / (bufferSize * 0.2));
+        }
+        const noise = ctx.createBufferSource();
+        noise.buffer = buffer;
+        const gain = ctx.createGain();
+        gain.gain.setValueAtTime(0.3, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.15);
+        noise.connect(gain);
+        gain.connect(ctx.destination);
+        noise.start();
+    } catch (e) {
+        console.log('Synth sound failed:', e);
+    }
+}
 
 function playShotSound() {
     shotSound.currentTime = 0;
-    shotSound.play().catch(e => console.log('Sound play blocked:', e));
+    shotSound.play().catch(e => {
+        console.log('HTML5 Audio failed, using Web Audio synth:', e);
+        playSynthShotSound();
+    });
 }
 
 // Initialize Lucide
@@ -210,4 +238,13 @@ if (mainCard) {
             }
         }
     };
+}
+
+// Register Service Worker for PWA / offline support
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js')
+            .then(reg => console.log('ServiceWorker registered with scope:', reg.scope))
+            .catch(err => console.log('ServiceWorker registration failed:', err));
+    });
 }
